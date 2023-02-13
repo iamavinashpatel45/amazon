@@ -26,6 +26,7 @@ class _admin_screenState extends State<admin_screen> {
   }
 
   void delete_product(BuildContext context, Product product) {
+    print("delete");
     adminservice.deleteproduct(context, product, () {
       setState(() {});
     });
@@ -116,8 +117,7 @@ class _admin_screenState extends State<admin_screen> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    delete_product(
-                                        context, products![index]);
+                                    delete_product(context, products![index]);
                                   },
                                   child: const Icon(
                                     Icons.delete,
