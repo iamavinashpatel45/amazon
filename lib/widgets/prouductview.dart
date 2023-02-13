@@ -13,7 +13,7 @@ class prouductview extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
-            width: 1.5,
+            width: 1,
           ),
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,

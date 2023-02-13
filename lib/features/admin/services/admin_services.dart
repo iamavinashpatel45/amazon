@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:amazon/constants/global_variables.dart';
 import 'package:amazon/constants/httperrorhanding.dart';
@@ -68,6 +69,67 @@ class admin_services {
         ),
       );
       return false;
+    }
+  }
+
+  Future<List<Product>> getproducts(
+    BuildContext context,
+  ) async {
+    try {
+      List<Product> productslist = [];
+      http.Response res = await http.post(
+        Uri.parse("${global_variables.url}/admin/get-products"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      for (int i = 0; i < jsonDecode(res.body).length; i++) {
+        productslist.add(
+          Product.fromJson(
+            jsonEncode(
+              jsonDecode(res.body)[i],
+            ),
+          ),
+        );
+      }
+      return productslist;
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+      return [];
+    }
+  }
+
+  void deleteproduct(
+    BuildContext context,
+    Product product,
+    VoidCallback onsuccess,
+  ) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse("${global_variables.url}/admin/delete-product"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: product.toJson(),
+      );
+      // ignore: use_build_context_synchronously
+      httperrorhandle(
+        res,
+        context,
+        () {
+          onsuccess();
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
     }
   }
 }
