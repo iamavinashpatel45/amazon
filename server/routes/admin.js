@@ -35,12 +35,11 @@ adminroutes.post("/admin/get-products", async (req, res) => {
 
 adminroutes.post("/admin/delete-product", async (req, res) => {
   try {
-    const {id}=res.body;
-    const Product = await product.findByIdAndDelete({id});
+    const {id}=req.body;
+    const Product = await product.findByIdAndDelete(id);
     if (Product == null) {
       return res.status(400).json({ mes: "Something went wrong!" });
     }
-    Product=await Product.save();
     res.json(Product);
   } catch (e) {
     res.status(500).json({ error: e.message });

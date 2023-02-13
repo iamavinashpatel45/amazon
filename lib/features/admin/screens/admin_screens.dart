@@ -25,11 +25,15 @@ class _admin_screenState extends State<admin_screen> {
     });
   }
 
-  void delete_product(BuildContext context, Product product) {
-    print("delete");
-    adminservice.deleteproduct(context, product, () {
-      setState(() {});
-    });
+  void delete_product(int index, Product product) {
+    adminservice.deleteproduct(
+      context,
+      product,
+      () {
+        products!.removeAt(index);
+        setState(() {});
+      },
+    );
   }
 
   @override
@@ -80,7 +84,7 @@ class _admin_screenState extends State<admin_screen> {
                 size: 40,
               ),
             )
-          : products == null
+          : products!.isEmpty
               ? const Center(
                   child: Text(
                     "There is not any Products in your list!",
@@ -112,12 +116,12 @@ class _admin_screenState extends State<admin_screen> {
                                   child: Text(
                                     products![index].name,
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                                    maxLines: 1,
                                   ),
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    delete_product(context, products![index]);
+                                    delete_product(index, products![index]);
                                   },
                                   child: const Icon(
                                     Icons.delete,
