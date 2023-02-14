@@ -92,9 +92,10 @@ class _admin_screenState extends State<admin_screen> {
                 )
               : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                    crossAxisCount: 2,
+                  ),
                   itemCount: products!.length,
-                  itemBuilder: ((context, index) {
+                  itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
@@ -133,7 +134,7 @@ class _admin_screenState extends State<admin_screen> {
                         ],
                       ),
                     );
-                  }),
+                  },
                 ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

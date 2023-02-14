@@ -1,4 +1,5 @@
 import 'package:amazon/constants/global_variables.dart';
+import 'package:amazon/features/homescreen/screens/categoryproducts.dart';
 import 'package:flutter/material.dart';
 
 class categories extends StatelessWidget {
@@ -13,28 +14,40 @@ class categories extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: global_variables.categoryImages.length,
         itemBuilder: (context, index) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.asset(
-                    global_variables.categoryImages[index]['image']!,
-                    fit: BoxFit.cover,
-                    height: 40,
-                    width: 40,
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => categoryproducts(
+                      category: global_variables.categoryImages[index]
+                          ['title']!),
+                ),
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      global_variables.categoryImages[index]['image']!,
+                      fit: BoxFit.cover,
+                      height: 40,
+                      width: 40,
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                global_variables.categoryImages[index]['title']!,
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
-              )
-            ],
+                Text(
+                  global_variables.categoryImages[index]['title']!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                )
+              ],
+            ),
           );
         },
       ),
