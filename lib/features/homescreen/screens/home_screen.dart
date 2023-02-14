@@ -1,10 +1,9 @@
 import 'package:amazon/constants/global_variables.dart';
-import 'package:amazon/features/homescreen/widgets/addressbar.dart';
+import 'package:amazon/widgets/addressbar.dart';
 import 'package:amazon/features/homescreen/widgets/categories.dart';
 import 'package:amazon/features/homescreen/widgets/dealoftheday.dart';
-import 'package:amazon/providers/user_provider.dart';
+import 'package:amazon/features/search/screens/searchscreen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../widgets/sliderimages.dart';
 
@@ -39,6 +38,14 @@ class _home_screenState extends State<home_screen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
+                      onFieldSubmitted: (value) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => searchscreen(query: value),
+                          ),
+                        );
+                      },
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
                           onTap: () {},
