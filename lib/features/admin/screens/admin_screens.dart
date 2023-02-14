@@ -25,6 +25,13 @@ class _admin_screenState extends State<admin_screen> {
     });
   }
 
+  reload() {
+    setState(() {
+      _isloading = true;
+      getproduct();
+    });
+  }
+
   void delete_product(int index, Product product) {
     adminservice.deleteproduct(
       context,
@@ -138,8 +145,14 @@ class _admin_screenState extends State<admin_screen> {
                 ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const addproduct()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const addproduct(),
+            ),
+          ).then((value) => {
+            reload(),
+          });
         },
         tooltip: "Add a Product",
         child: const Icon(
