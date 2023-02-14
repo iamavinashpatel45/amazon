@@ -17,7 +17,6 @@ userroutes.get("/user/get-products/search/:name", auth, async (req, res) => {
   try {
     const name = req.params.name;
     const Product = await product.find({ name:{$regex:name,$options:'i'}});
-    console.log(Product);
     res.json(Product);
   } catch (e) {
     res.status(500).json({ error: e.message });
