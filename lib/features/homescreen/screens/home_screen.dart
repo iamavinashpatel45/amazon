@@ -4,7 +4,6 @@ import 'package:amazon/features/homescreen/widgets/categories.dart';
 import 'package:amazon/features/homescreen/widgets/dealoftheday.dart';
 import 'package:amazon/features/search/screens/searchscreen.dart';
 import 'package:flutter/material.dart';
-
 import '../widgets/sliderimages.dart';
 
 class home_screen extends StatefulWidget {
@@ -38,6 +37,9 @@ class _home_screenState extends State<home_screen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
+                      onChanged: (value){
+
+                      },
                       onFieldSubmitted: (value) {
                         Navigator.push(
                           context,

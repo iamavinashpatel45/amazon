@@ -135,48 +135,16 @@ class _searchscreenState extends State<searchscreen> {
                       ? Text(
                           "No Product name found as ${widget.query}",
                         )
-                      : GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                          ),
-                          itemCount: products!.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 145,
-                                    child: prouductview(
-                                      link: products![index].images[0],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: SubstringHighlight(
-                                            text: products![index].name,
-                                            term: widget.query,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                      : ListView.builder(
+                        itemCount: products!.length,
+                        itemBuilder: (context, index) {
+                          //var
+                          return Column(
+                            children: [
+                              prouductview(link: products![index].images[0])
+                            ],
+                          );
+                        })
                 ],
               ),
             ),
