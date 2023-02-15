@@ -175,7 +175,8 @@ class _searchscreenState extends State<searchscreen> {
                                 ],
                               ),
                             );
-                          }),
+                          },
+                        ),
                 ],
               ),
             ),
