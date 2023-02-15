@@ -1,11 +1,10 @@
 import 'package:amazon/constants/global_variables.dart';
 import 'package:amazon/features/search/services/searchservices.dart';
+import 'package:amazon/features/search/widgets/search_product_view.dart';
 import 'package:amazon/models/product.dart';
 import 'package:amazon/widgets/addressbar.dart';
-import 'package:amazon/widgets/prouductview.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:substring_highlight/substring_highlight.dart';
 
 class searchscreen extends StatefulWidget {
   final String query;
@@ -126,27 +125,24 @@ class _searchscreenState extends State<searchscreen> {
                 size: 40,
               ),
             )
-          : SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  const addressbar(),
-                  products!.isEmpty
-                      ? Text(
-                          "No Product name found as ${widget.query}",
-                        )
-                      : ListView.builder(
+          : Column(
+              children: [
+                const addressbar(),
+                products!.isEmpty
+                    ? Text(
+                        "No Product name found as ${widget.query}",
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
                         itemCount: products!.length,
                         itemBuilder: (context, index) {
-                          //var
-                          return Column(
-                            children: [
-                              prouductview(link: products![index].images[0])
-                            ],
+                          return searchproductview(
+                            product: products![index],
+                            query: widget.query,
                           );
-                        })
-                ],
-              ),
+                        },
+                      ),
+              ],
             ),
     );
   }

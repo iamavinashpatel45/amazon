@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 
 class prouductview extends StatelessWidget {
   final String link;
+  final bool isborder;
+  final double padding;
 
-  const prouductview({super.key, required this.link});
+  const prouductview(
+      {super.key, required this.link, this.isborder = true, this.padding = 15});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.symmetric(horizontal: padding),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
+          border: isborder
+              ? Border.all(
+                  color: Colors.black,
+                  width: 1,
+                )
+              : const Border(),
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
