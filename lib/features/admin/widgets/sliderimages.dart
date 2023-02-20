@@ -4,7 +4,6 @@ import 'dart:io';
 
 class sliderimages_admin extends StatelessWidget {
   final List<File> images;
-
   const sliderimages_admin({super.key, required this.images});
 
   @override

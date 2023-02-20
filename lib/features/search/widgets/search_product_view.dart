@@ -36,6 +36,8 @@ class searchproductview extends StatelessWidget {
               SubstringHighlight(
                 text: product.name,
                 term: query,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 textStyleHighlight: const TextStyle(
                   color: Colors.orange,
                   fontSize: 16,

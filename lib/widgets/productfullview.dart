@@ -1,37 +1,14 @@
 import 'package:amazon/constants/global_variables.dart';
-import 'package:amazon/features/search/services/searchservices.dart';
-import 'package:amazon/features/search/widgets/search_product_view.dart';
+import 'package:amazon/features/search/screens/searchscreen.dart';
 import 'package:amazon/models/product.dart';
-import 'package:amazon/widgets/addressbar.dart';
-import 'package:amazon/widgets/productfullview.dart';
+import 'package:amazon/widgets/button.dart';
+import 'package:amazon/widgets/ratingbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class searchscreen extends StatefulWidget {
-  final String query;
-  const searchscreen({super.key, required this.query});
-
-  @override
-  State<searchscreen> createState() => _searchscreenState();
-}
-
-class _searchscreenState extends State<searchscreen> {
-  List<Product>? products;
-  bool _isloading = true;
-  final search_services searchservice = search_services();
-
-  getproduct() async {
-    products = await searchservice.getproduct(widget.query, context);
-    setState(() {
-      _isloading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    getproduct();
-    super.initState();
-  }
+class productfullview extends StatelessWidget {
+  final Product product;
+  const productfullview({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -119,44 +96,105 @@ class _searchscreenState extends State<searchscreen> {
           ),
         ),
       ),
-      body: _isloading
-          ? Center(
-              child: LoadingAnimationWidget.inkDrop(
-                color: global_variables.selectedNavBarColor,
-                size: 40,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    product.id.toString(),
+                  ),
+                  const ratingbar(rating: 2),
+                ],
               ),
-            )
-          : Column(
-              children: [
-                const addressbar(),
-                products!.isEmpty
-                    ? Text(
-                        "No Product name found as ${widget.query}",
-                      )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: products!.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => productfullview(
-                                    product: products![index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: searchproductview(
-                              product: products![index],
-                              query: widget.query,
-                            ),
-                          );
-                        },
-                      ),
-              ],
-            ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                product.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CarouselSlider(
+                items: product.images.map((e) {
+                  return Image.network(
+                    e,
+                    fit: BoxFit.fitWidth,
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  height: 300,
+                ),
+              ),
+              const Divider(
+                thickness: 2,
+                color: Colors.black12,
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "Deal Price:",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    "\$${product.price}",
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                product.description,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const Divider(
+                thickness: 2,
+                color: Colors.black12,
+              ),
+              button(
+                ontap: () {},
+                text: "Buy",
+                color: const Color.fromRGBO(254, 216, 19, 1),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              button(
+                ontap: () {},
+                text: "Add to Cart",
+                color: const Color.fromRGBO(254, 216, 19, 1),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
