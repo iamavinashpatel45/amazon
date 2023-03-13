@@ -1,14 +1,20 @@
 import 'package:amazon/constants/global_variables.dart';
+import 'package:amazon/features/homescreen/services/productservices.dart';
 import 'package:amazon/features/search/screens/searchscreen.dart';
 import 'package:amazon/models/product.dart';
 import 'package:amazon/widgets/button.dart';
 import 'package:amazon/widgets/ratingbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class productfullview extends StatelessWidget {
   final Product product;
-  const productfullview({super.key, required this.product});
+  final productsservices _productservices = productsservices();
+  productfullview({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -191,6 +197,28 @@ class productfullview extends StatelessWidget {
                 text: "Add to Cart",
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
+              const Text(
+                "Rate the Product",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              RatingBar.builder(
+                initialRating: 0,
+                minRating: 1,
+                allowHalfRating: true,
+                direction: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return const Icon(
+                    Icons.star,
+                    color: global_variables.secondaryColor,
+                  );
+                },
+                onRatingUpdate: (rating) {
+                  _productservices.rateproduct(rating, context, product);
+                },
+              )
             ],
           ),
         ),
