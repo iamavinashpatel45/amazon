@@ -115,7 +115,9 @@ class productfullview extends StatelessWidget {
                   Text(
                     product.id.toString(),
                   ),
-                  const ratingbar(rating: 2),
+                  ratingbar(
+                    product: product,
+                  ),
                 ],
               ),
               const SizedBox(

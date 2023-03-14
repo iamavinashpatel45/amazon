@@ -62,7 +62,7 @@ class searchproductview extends StatelessWidget {
                 height: 5,
               ),
               ratingbar(
-                rating: double.parse(product.images.length.toString()),
+                product: product,
               ),
               Text(
                 "\$${product.price}",
