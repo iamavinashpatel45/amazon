@@ -14,7 +14,6 @@ class ratingbar extends StatelessWidget {
   Widget build(BuildContext context) {
     double rating = 0.0;
     for (int i = 0; i < product.rating!.length; i++) {
-      print(product.rating![i].rating);
       rating += product.rating![i].rating;
     }
     rating = rating / product.rating!.length;
